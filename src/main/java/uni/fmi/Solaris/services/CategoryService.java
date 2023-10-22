@@ -2,6 +2,7 @@ package uni.fmi.Solaris.services;
 
 import org.springframework.stereotype.Service;
 import uni.fmi.Solaris.dto.CategoryDTO;
+import uni.fmi.Solaris.models.Category;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,6 +16,7 @@ public class CategoryService implements ICategoryService {
         categoryDTO1.setId(1);
         categoryDTO1.setName("category 1");
         categoryDTO1.setVatPercent(20);
+        //final
 
         CategoryDTO categoryDTO2 = new CategoryDTO();
         categoryDTO2.setId(2);
