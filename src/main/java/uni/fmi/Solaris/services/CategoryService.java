@@ -1,17 +1,24 @@
 package uni.fmi.Solaris.services;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import uni.fmi.Solaris.dto.CategoryDTO;
 import uni.fmi.Solaris.models.Category;
+import uni.fmi.Solaris.repo.CategoryRepo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
+@AllArgsConstructor
 @Service
 public class CategoryService implements ICategoryService {
+
+    CategoryRepo categoryRepo;
+
     @Override
     public List<CategoryDTO> getAll(){
+        List<Category> categories = categoryRepo.findAll();
+        Category category = new Category();
         CategoryDTO categoryDTO1 = new CategoryDTO();
         categoryDTO1.setId(1);
         categoryDTO1.setName("category 1");
