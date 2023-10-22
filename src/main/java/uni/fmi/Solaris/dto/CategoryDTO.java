@@ -1,9 +1,11 @@
 package uni.fmi.Solaris.dto;
 
+import uni.fmi.Solaris.models.Category;
+
 import java.util.List;
 
 public class CategoryDTO {
-    private int id;
+    private long id;
     private String name;
     private CategoryDTO parent;
     private List<CategoryDTO> children;
@@ -11,12 +13,18 @@ public class CategoryDTO {
 
     public CategoryDTO() {
     }
+    public CategoryDTO(Category category) {
+        this.id = category.getId();
+        this.name = category.getName();
+        this.vatPercent = category.getVatPercent();
+    }
 
-    public int getId() {
+
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

@@ -9,6 +9,8 @@ import uni.fmi.Solaris.repo.CategoryRepo;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @AllArgsConstructor
 @Service
 public class CategoryService implements ICategoryService {
@@ -18,24 +20,17 @@ public class CategoryService implements ICategoryService {
     @Override
     public List<CategoryDTO> getAll(){
         List<Category> categories = categoryRepo.findAll();
-        Category category = new Category();
-        CategoryDTO categoryDTO1 = new CategoryDTO();
-        categoryDTO1.setId(1);
-        categoryDTO1.setName("category 1");
-        categoryDTO1.setVatPercent(20);
-        //final
 
-        CategoryDTO categoryDTO2 = new CategoryDTO();
-        categoryDTO2.setId(2);
-        categoryDTO2.setName("category 2");
-        categoryDTO2.setVatPercent(10);
-        //categoryDTO2.setParent(categoryDTO1);
+       /* List<CategoryDTO> result = new ArrayList<>();
+        for (Category cat:categories) {
+            result.add(new CategoryDTO(cat));
+        }
+        return result;*/
 
-        categoryDTO1.setChildren(Arrays.asList(categoryDTO2));
-
-        List<CategoryDTO> result = new ArrayList<>();
-        result.add(categoryDTO1);
-        return result;
+        return categories
+                .stream()
+                .map(CategoryDTO::new)
+                .collect(Collectors.toList());
     }
 
 }
