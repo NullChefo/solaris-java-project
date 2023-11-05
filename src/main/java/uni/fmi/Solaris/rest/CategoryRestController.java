@@ -22,8 +22,9 @@ public class CategoryRestController {
         this.categoryService=categoryService;
     }
 
-    @GetMapping(path = "/list")
+    @GetMapping()
     public List<CategoryDTO> list(){
+        //categoryService.get(12l);
         return categoryService.getAll();
     }
 }
