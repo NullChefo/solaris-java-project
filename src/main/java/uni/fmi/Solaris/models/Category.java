@@ -1,9 +1,6 @@
 package uni.fmi.Solaris.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,10 +9,15 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
+@Table(name = "Product_Category")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
+    @Column(nullable = false, unique = true)
     private String name;
-    int vatPercent;
+    @Column(name = "vat_percent", nullable = false)
+    private int vatPercent;
+    @Transient
+    private String temp;
 }
