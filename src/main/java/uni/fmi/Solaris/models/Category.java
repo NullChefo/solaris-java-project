@@ -10,10 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "Product_Category")
-public class Category {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
+public class Category extends MainModel {
     @Column(nullable = false, unique = true)
     private String name;
     @Column(name = "vat_percent", nullable = false)
