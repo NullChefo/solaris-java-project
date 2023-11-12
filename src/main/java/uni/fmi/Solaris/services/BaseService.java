@@ -34,6 +34,10 @@ public abstract class BaseService<U extends MainModel> {
         return result;
     }
 
+    public Optional<U> getEntity(Long id){
+        return getRepo().findById(id);
+    }
+
     public BaseDTO<U> create(BaseDTO<U> baseDTO){
         U category = convertDTOtoModel(baseDTO);
         U savedCategory = getRepo().save(category);
