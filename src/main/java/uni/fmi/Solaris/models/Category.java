@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,4 +20,13 @@ public class Category extends MainModel {
     private int vatPercent;
     @Transient
     private String temp;
+    @OneToMany(mappedBy = "category")
+    private Set<Product> products;
+
+    public boolean addProduct(final Product product){
+        if(products ==null){
+            products = new HashSet<>();
+        }
+        return products.add(product);
+    }
 }

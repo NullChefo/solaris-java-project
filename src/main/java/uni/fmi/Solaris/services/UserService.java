@@ -9,9 +9,6 @@ import uni.fmi.Solaris.models.User;
 import uni.fmi.Solaris.repo.UserRepo;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService extends BaseService<User> {

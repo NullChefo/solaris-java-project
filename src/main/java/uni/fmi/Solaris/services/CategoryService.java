@@ -8,10 +8,6 @@ import uni.fmi.Solaris.dto.CategoryDTO;
 import uni.fmi.Solaris.models.Category;
 import uni.fmi.Solaris.repo.CategoryRepo;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 @AllArgsConstructor
 @Service
 public class CategoryService extends BaseService<Category>{

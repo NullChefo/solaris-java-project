@@ -2,8 +2,6 @@ package uni.fmi.Solaris.services;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import uni.fmi.Solaris.dto.BaseDTO;
-import uni.fmi.Solaris.dto.CategoryDTO;
-import uni.fmi.Solaris.models.Category;
 import uni.fmi.Solaris.models.MainModel;
 
 import java.util.List;
