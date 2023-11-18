@@ -15,10 +15,6 @@ import java.time.LocalDateTime;
 public class Article extends MainModel{
     private String content;
     private String title;
-    @Column(name = "CREATED_AT")
-    private LocalDateTime createdAt;
-    @Column(name = "UPDATED_AT")
-    private LocalDateTime updatedAt;
 
     @ManyToOne()
     @JoinColumn(name = "USER_ID")

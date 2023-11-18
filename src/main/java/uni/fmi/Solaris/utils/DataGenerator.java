@@ -1,63 +1,95 @@
 package uni.fmi.Solaris.utils;
 
 import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Component;
+
 import uni.fmi.Solaris.models.Category;
 import uni.fmi.Solaris.models.Product;
+import uni.fmi.Solaris.models.Rating;
 import uni.fmi.Solaris.models.User;
 import uni.fmi.Solaris.repo.CategoryRepo;
 import uni.fmi.Solaris.repo.ProductRepo;
+import uni.fmi.Solaris.repo.RatingRepo;
 import uni.fmi.Solaris.repo.UserRepo;
 
 @Component
 public class DataGenerator {
-    @Autowired
-    private CategoryRepo categoryRepo;
-    @Autowired
-    private ProductRepo productRepo;
-    @Autowired
-    private UserRepo userRepo;
+	private final CategoryRepo categoryRepo;
+	private final UserRepo userRepo;
 
-    @PostConstruct
-    public void initCategories() {
-        if (categoryRepo.count() == 0) {
-            Category category = new Category();
-            category.setName("Category 1");
-            category.setVatPercent(12);
-            final Product prod1 = createProduct(category,
-                                            100,
-                                            "Product 1",
-                                            10);
-            category.addProduct(prod1);
-            category.addProduct(createProduct(category, 45.59, "Product 2", 2));
-            categoryRepo.save(category);
-            productRepo.saveAll(category.getProducts());
+	private final ProductRepo productRepo;
+	private final RatingRepo ratingRepo;
 
-            Category category2 = new Category();
-            category2.setName("Category 2");
-            category2.setVatPercent(21);
-            categoryRepo.save(category2);
-        }
+	public DataGenerator(final CategoryRepo categoryRepo, final UserRepo userRepo, final ProductRepo productRepo,
+						 final RatingRepo ratingRepo) {
+		this.categoryRepo = categoryRepo;
+		this.userRepo = userRepo;
+		this.productRepo = productRepo;
+		this.ratingRepo = ratingRepo;
+	}
 
-        if(userRepo.count()==0){
-            User user = new User();
-            user.setName("Ivan");
-            user.setEmail("ivan@test.com");
-            user.setAddress("Plovdiv");
-            user.setPassword("password");
-            user.setPhone("+359888969696");
-            userRepo.save(user);
-        }
+	@PostConstruct
+	public void initCategories() {
+		if (categoryRepo.count() == 0) {
+			Category category = new Category();
+			category.setName("Category 1");
+			category.setVatPercent(12);
 
-    }
 
-    private Product createProduct(Category category, double price, String name, int quantity) {
-        Product product = new Product();
-        product.setPrice(price);
-        product.setName(name);
-        product.setQuantity(quantity);
-        product.setCategory(category);
-        return product;
-    }
+			category.addProduct(createProduct(100, "Product 1", 2, category));
+
+			category.addProduct(createProduct(200, "Product 2", 2, category));
+			category.addProduct(createProduct(300, "Product 3", 2, category));
+
+			category.addProduct(createProduct(-500, "Product 5", 5, category));
+
+
+			categoryRepo.save(category);
+			productRepo.saveAll(category.getProducts());
+
+			Category category2 = new Category();
+			category2.setName("Category 2");
+			category2.setVatPercent(21);
+			categoryRepo.save(category2);
+		}
+
+		if (userRepo.count() == 0) {
+			User user = new User();
+			user.setName("Ivan");
+			user.setEmail("ivan@test.com");
+			user.setAddress("Plovdiv");
+			user.setPassword("password");
+			user.setPhone("+359888969696");
+			userRepo.save(user);
+		}
+
+
+		if (ratingRepo.count() == 0){
+			ratingRepo.save(Rating.builder().value(3)
+								  .product(productRepo.findById(1L).get())
+								  .user(userRepo.findById(1L).get())
+								  .build());
+		}
+
+//		if (productRepo.count() == 0) {
+//			Product product =
+//			productRepo.save(product);
+//
+//		}
+
+	}
+
+	private Product createProduct(double price, String name, int quantity, Category category){
+		return Product
+				.builder()
+				.price(price)
+				.name(name)
+				.description("description")
+				.quantity(quantity)
+				.category(category)
+				.build();
+	}
+
+
 }

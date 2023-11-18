@@ -4,6 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import uni.fmi.Solaris.dto.BaseDTO;
 import uni.fmi.Solaris.models.MainModel;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -19,6 +21,9 @@ public abstract class BaseService<U extends MainModel> {
                 .map(this::convert)
                 .collect(Collectors.toList());
     }
+	public Optional<U> getById(Long id){
+		return getRepo().findById(id);
+	}
 
 
     public BaseDTO<U> getBy(Long id) {
@@ -39,10 +44,11 @@ public abstract class BaseService<U extends MainModel> {
     }
 
     public BaseDTO<U> create(BaseDTO<U> baseDTO){
-        U category = convertDTOtoModel(baseDTO);
-        U savedCategory = getRepo().save(category);
+        U entity = convertDTOtoModel(baseDTO);
+		entity.setCreatedAt(LocalDateTime.now());
+        U savedEntity = getRepo().save(entity);
 
-        return convert(savedCategory);
+        return convert(savedEntity);
     }
 
     protected abstract U convertDTOtoModel(BaseDTO<U> baseDTO);
@@ -52,6 +58,7 @@ public abstract class BaseService<U extends MainModel> {
         Optional<U> optionalEntity = getRepo().findById(id);
         if(optionalEntity.isPresent()){
             U entity = optionalEntity.get();
+			entity.setUpdatedAt(LocalDateTime.now());
             updateEntity(entity, dto);
             return convert(getRepo().save(entity));
         }

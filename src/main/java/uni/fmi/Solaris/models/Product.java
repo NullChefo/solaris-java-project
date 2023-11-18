@@ -1,6 +1,8 @@
 package uni.fmi.Solaris.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,6 +11,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
+@Builder
+@AllArgsConstructor
 @Table(name = "PRODUCTS")
 public class Product extends MainModel{
     @Column(length = 256, name = "NAME", nullable = false)

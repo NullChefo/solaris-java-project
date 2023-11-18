@@ -29,6 +29,7 @@ public class UserRestController {
     }
 
 
+
     @PutMapping()
     public BaseDTO<User> update(@RequestBody UserDTO user) {
         return userService.update(user);

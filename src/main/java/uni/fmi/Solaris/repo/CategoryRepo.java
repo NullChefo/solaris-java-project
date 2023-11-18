@@ -5,4 +5,5 @@ import org.springframework.stereotype.Repository;
 import uni.fmi.Solaris.models.Category;
 @Repository
 public interface CategoryRepo extends JpaRepository<Category, Long> {
+	Category findByNameIgnoreCase(String categoryName);
 }
